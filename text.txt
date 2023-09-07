@@ -1,0 +1,33 @@
+effects, reducers and context( advanced yet super important features), working with side effects-> managing more complex state with reducers-> managing app- wide or component - wide state with context
+
+2. 
+
+what is an effect (or a side effects)
+main job : render ui and react user input . tthe react library has one main job to render the ui to react to our user input  to rerendr the ui when it's needed .: evaluate and render jsx manage state and props react to (user) events and input re-evaluate component upon state and prop changes- this all is baked into react via the tools and features covered in this course (i.e useState() hook , props etc)
+
+side effects : anything else, store data in browser storage send https requests to backend servers set and manage timers.
+these tasks must happen outside of the normal component evaluation and render cycle especially since they might block/delay rendering (ex https request)
+useState and keystrokes updates (collect a certain amount of keystrokes and pause a certainamount of time dureation after the keystrokes) that's a technique is called debouncing
+
+8.
+Introducing useReducer() for state management
+Sometimes, u have more complex state - for example if it got multiple staes, multiple ways of changing it of dependencies to other states -> useState() then often becomes hard or error - prone to use -it's easy to write bad , inefficient or buggy code in such scenarios -> useReducer() can be used as a replacement for useState() if u need "more powerful state management"
+9.
+useReducer always returns an array with exactly 2 values therefore u can use array destructuring as we did it with useState to pull out these value and store this in seperate constant
+
+const [state,dispatchFn] = useReducer(reducerFn,initialState,initFn)
+state: the state snapshot used in the component re-render/re-evaluation cycle
+dispatchFn: A function that can be used to dispatch a new action (i.e trigger an update of the state)
+reducerFn: takes 2 parameter (prevState,action) => newState . A function that is triggered automatically once an action is dispatched (via dispatchFn()) - it receives the latest state snapshot and should return the new , updated state
+initialState: the initial state
+initFn: A function to set the initial state programmatically
+
+
+12. useState() vs useReducer()
+generally, u'll know when u need useReducer() (-> when using useState() becomes cumbersome or u're getting a lot of bugs/unintended behaviors)  then u can use useReducer
+
+useState() The main state management "tool", Great for independent pieces of state/data| Great for independent pieces of state/data | Great if state updates are easy and limited to a few kinds of updates.
+useReducer() Great if u need "more power" | should be considered if u have related pieces of state/daa | can be helpful if u have more complex state updates
+
+instead : use props and functions passed via props, component-wide, "behind-the-scenes" state storage, a concept is state storage is react context.
+we have this react context concepts which allows us to manage state kind of behind the scene in react such that we actually able to directlychange it from any component from the app and directly pass it to any component in our app without building such a prop chain.
